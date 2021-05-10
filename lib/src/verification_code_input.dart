@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 
 class VerificationCodeInput extends StatefulWidget {
   final ValueChanged<String> onCompleted;
+  final void isEditing;
   final TextInputType keyboardType;
   final int length;
   final double itemSize;
@@ -12,6 +13,7 @@ class VerificationCodeInput extends StatefulWidget {
   VerificationCodeInput(
       {Key key,
       this.onCompleted,
+        this.isEditing,
       this.keyboardType = TextInputType.number,
       this.length = 4,
       this.itemDecoration,
@@ -72,6 +74,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
           errorMaxLines: 1,
           fillColor: Colors.black),
       onChanged: (String value) {
+        widget.isEditing();
         if (value.length > 1 && index < widget.length ||
             index == 0 && value.isNotEmpty) {
           if (index == widget.length - 1) {
