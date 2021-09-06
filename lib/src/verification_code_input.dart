@@ -11,17 +11,17 @@ class VerificationCodeInput extends StatefulWidget {
   final TextStyle textStyle;
   final bool autofocus;
   VerificationCodeInput(
-      {Key key,
-      this.onCompleted,
-        this.isEditing,
+      {Key? key,
+      required this.onCompleted,
+        required this.isEditing,
       this.keyboardType = TextInputType.number,
       this.length = 4,
-      this.itemDecoration,
+      required this.itemDecoration,
       this.itemSize = 50,
       this.textStyle = const TextStyle(fontSize: 25.0, color: Colors.black),
       this.autofocus = true})
-      : assert(length > 0),
-        assert(itemSize > 0),
+      : assert(length! > 0),
+        assert(itemSize! > 0),
         super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
   final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
       <TextEditingController>[];
-  List<String> _code = List();
+  List<String> _code = List<String>.empty(growable: true);
   int _currentIdex = 0;
   @override
   void initState() {
@@ -122,7 +122,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
       setState(() {
         _currentIdex = index + 1;
       });
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
         FocusScope.of(context).requestFocus(_listFocusNode[index + 1]);
       });
     }
@@ -136,14 +136,14 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
         }
         _currentIdex = index - 1;
       });
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
         FocusScope.of(context).requestFocus(_listFocusNode[index - 1]);
       });
     }
   }
 
   List<Widget> _buildListWidget() {
-    List<Widget> listWidget = List();
+    List<Widget> listWidget = List<Widget>.empty(growable: true);;
     for (int index = 0; index < widget.length; index++) {
       double left = (index == 0) ? 0.0 : (widget.itemSize / 10);
       listWidget.add(Container(
